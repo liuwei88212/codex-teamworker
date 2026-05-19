@@ -1,0 +1,29 @@
+{
+  "config": {
+    "adapter": "opencode",
+    "leader": {
+      "provider": "deepseek",
+      "model": "deepseek-v4-pro",
+      "baseUrl": "https://api.deepseek.com/anthropic",
+      "apiKey": "sk-dbc9d42ff18945b4bfd84bcd701b6813"
+    },
+    "worker": {
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
+      "baseUrl": "https://api.deepseek.com/anthropic",
+      "apiKey": "sk-dbc9d42ff18945b4bfd84bcd701b6813"
+    },
+    "adapters": {
+      "opencode": {
+        "command": "opencode",
+        "args": ["run", "--format", "json", "--model", "{{provider}}/{{model}}"],
+        "timeoutMs": 180000
+      },
+      "claudecode": {
+        "command": "claude",
+        "args": ["-p", "--output-format", "stream-json", "--verbose", "--model", "{{model}}", "--max-turns", "20", "--permission-mode", "bypassPermissions"],
+        "timeoutMs": 300000
+      }
+    }
+  }
+}

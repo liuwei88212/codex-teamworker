@@ -1,0 +1,38 @@
+{
+  "name": "open-woker-team",
+  "version": "0.1.0",
+  "description": "Vibe-coding orchestrator MCP for sandboxed worker teams.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "open-woker-team": "bin/open-woker-team.mjs"
+  },
+  "files": [
+    "bin",
+    "config.json",
+    "dist",
+    "docs",
+    "opencode.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dev": "tsx src/server.ts",
+    "start": "node dist/src/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
