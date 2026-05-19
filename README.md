@@ -1,6 +1,6 @@
-# open-woker-team
+# teamworker
 
-`open-woker-team` 是一个 **Vibe Coding Orchestrator MCP**。它的定位是“开发组长 worker”：Codex 负责提出需求、制定计划、确认任务分配和最终验收；open-woker-team 负责接收计划、拆分任务图、调度子 worker、检查完成质量、必要时发起返工，并把最终结果回报给 Codex。
+`teamworker` 是一个 **Vibe Coding Orchestrator MCP**。它的定位是“开发组长 worker”：Codex 负责提出需求、制定计划、确认任务分配和最终验收；teamworker 负责接收计划、拆分任务图、调度子 worker、检查完成质量、必要时发起返工，并把最终结果回报给 Codex。
 
 真实项目目录不会在 worker 执行阶段被修改。所有开发先发生在沙箱副本中；只有你明确调用发布工具后，沙箱结果才会按 `publish-manifest.json` 事务写回真实项目，并支持文件级回滚。
 
@@ -11,9 +11,9 @@ question -> leader agent -> subagents -> leader review -> result -> Codex approv
 ```
 
 1. Codex 创建 `PlanBundle`，描述需求、模块、约束、验收标准和检查命令。
-2. open-woker-team 生成 `TaskGraph`，返回 `reviewSummary` 给 Codex 展示。
+2. teamworker 生成 `TaskGraph`，返回 `reviewSummary` 给 Codex 展示。
 3. Codex 或用户确认任务分配后，调用 `orchestrator_approve_task_graph`。
-4. open-woker-team 创建沙箱并后台执行任务 DAG。
+4. teamworker 创建沙箱并后台执行任务 DAG。
 5. Codex 通过 `orchestrator_tail_run` 查看组长、组员和检查进度。
 6. 子 worker 完成后，组长生成 `LeaderReview`。
 7. 如果仍有 gaps，组长会在 `maxReworkAttempts` 预算内把任务重新派给对应 worker。
@@ -37,7 +37,7 @@ question -> leader agent -> subagents -> leader review -> result -> Codex approv
 ## 安装
 
 ```powershell
-cd E:\workspace\claudecode\open-woker-team
+cd D:\workspace\codex\codex-teamworker
 npm install
 npm run build
 ```
@@ -47,9 +47,9 @@ npm run build
 推荐直接指向构建后的 server：
 
 ```toml
-[mcp_servers.open_woker_team]
+[mcp_servers.teamworker]
 command = "node"
-args = ["E:\\workspace\\claudecode\\open-woker-team\\dist\\src\\server.js"]
+args = ["D:\\workspace\\codex\\codex-teamworker\\dist\\src\\server.js"]
 ```
 
 修改 Codex 配置后通常需要重启 Codex Desktop。
@@ -73,9 +73,11 @@ args = ["E:\\workspace\\claudecode\\open-woker-team\\dist\\src\\server.js"]
 
 读取优先级：
 
-1. `OPEN_WOKER_TEAM_CONFIG` 指定的文件
-2. `%USERPROFILE%\.codex\open-woker-team\config.json`
-3. 项目内 `E:\workspace\claudecode\open-woker-team\config.json`
+1. `TEAMWORKER_CONFIG` 指定的文件
+2. `OPEN_WOKER_TEAM_CONFIG` 指定的文件（兼容旧配置）
+3. `%USERPROFILE%\.codex\teamworker\config.json`
+4. `%USERPROFILE%\.codex\open-woker-team\config.json`（兼容旧配置）
+5. 项目内 `D:\workspace\codex\codex-teamworker\config.json`
 
 示例：
 
@@ -192,7 +194,7 @@ orchestrator_tail_run
 
 ## 组长审查和返工
 
-任务执行后，open-woker-team 会生成 `leaderReview`：
+任务执行后，teamworker 会生成 `leaderReview`：
 
 - 每个任务是否满足分配要求
 - 子 worker 结果、变更文件和检查结果证据
@@ -220,7 +222,7 @@ Codex 应把沙箱位置、运行方式和 README 内容一起展示给用户。
 
 ## 发布与回滚
 
-发布前，open-woker-team 会比较真实项目和沙箱差异，生成发布 manifest，并备份受影响文件。只有调用 `orchestrator_publish_run` 后，沙箱内容才会写回真实项目。
+发布前，teamworker 会比较真实项目和沙箱差异，生成发布 manifest，并备份受影响文件。只有调用 `orchestrator_publish_run` 后，沙箱内容才会写回真实项目。
 
 如果发布后需要撤回，可以调用 `orchestrator_rollback_publish`。回滚基于 `publish-manifest.json` 和 `publish-backup/`，不依赖 Git，因此无 Git 项目也可以发布和回滚。
 
@@ -229,7 +231,7 @@ Codex 应把沙箱位置、运行方式和 README 内容一起展示给用户。
 默认状态根目录：
 
 ```text
-%USERPROFILE%\.codex\open-woker-team\runs
+%USERPROFILE%\.codex\teamworker\runs
 ```
 
 每次运行会保存：

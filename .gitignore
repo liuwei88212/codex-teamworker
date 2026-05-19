@@ -1,5 +1,8 @@
 node_modules/
+.npm-cache/
 dist/
+!bin/
+!bin/teamworker.mjs
 .env
 .tmp/
 coverage/

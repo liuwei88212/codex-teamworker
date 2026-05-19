@@ -23,7 +23,9 @@ export function normalizeConfig(input: unknown): OrchestratorConfig {
 export function defaultConfigPaths(): string[] {
   const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
   return [
+    process.env.TEAMWORKER_CONFIG,
     process.env.OPEN_WOKER_TEAM_CONFIG,
+    resolve(homedir(), ".codex", "teamworker", "config.json"),
     resolve(homedir(), ".codex", "open-woker-team", "config.json"),
     resolve(projectRoot, "config.json")
   ].filter((item): item is string => Boolean(item));

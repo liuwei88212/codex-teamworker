@@ -1,11 +1,11 @@
-# open-woker-team 集成指南
+# teamworker 集成指南
 
-本文说明如何把 `open-woker-team` 集成到 Codex / MCP 客户端，并完成一次从计划、任务确认、沙箱执行、验收到发布回滚的完整流程。
+本文说明如何把 `teamworker` 集成到 Codex / MCP 客户端，并完成一次从计划、任务确认、沙箱执行、验收到发布回滚的完整流程。
 
 ## 1. 构建项目
 
 ```powershell
-cd E:\workspace\claudecode\open-woker-team
+cd D:\workspace\codex\codex-teamworker
 npm install
 npm run build
 ```
@@ -13,15 +13,15 @@ npm run build
 MCP 入口：
 
 ```text
-E:\workspace\claudecode\open-woker-team\dist\src\server.js
+D:\workspace\codex\codex-teamworker\dist\src\server.js
 ```
 
 ## 2. Codex MCP 配置
 
 ```toml
-[mcp_servers.open_woker_team]
+[mcp_servers.teamworker]
 command = "node"
-args = ["E:\\workspace\\claudecode\\open-woker-team\\dist\\src\\server.js"]
+args = ["D:\\workspace\\codex\\codex-teamworker\\dist\\src\\server.js"]
 ```
 
 修改后重启 Codex Desktop。
@@ -86,7 +86,7 @@ prompt 通过 stdin 写入，避免 Windows npm shim 对长中文参数的转义
 question -> agent -> subagents -> result
 ```
 
-Codex 仍是产品经理和最终验收方；open-woker-team 是开发组长；CLI adapter 是子 worker 执行层。
+Codex 仍是产品经理和最终验收方；teamworker 是开发组长；CLI adapter 是子 worker 执行层。
 
 ## 6. 任务确认
 
@@ -107,7 +107,7 @@ Codex 仍是产品经理和最终验收方；open-woker-team 是开发组长；C
 每个 run 都会写入：
 
 ```text
-%USERPROFILE%\.codex\open-woker-team\runs\run_xxx\events.jsonl
+%USERPROFILE%\.codex\teamworker\runs\run_xxx\events.jsonl
 ```
 
 典型事件：

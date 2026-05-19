@@ -1,11 +1,11 @@
 {
-  "name": "open-woker-team",
+  "name": "teamworker",
   "version": "0.1.0",
   "description": "Vibe-coding orchestrator MCP for sandboxed worker teams.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "open-woker-team": "bin/open-woker-team.mjs"
+    "teamworker": "bin/teamworker.mjs"
   },
   "files": [
     "bin",

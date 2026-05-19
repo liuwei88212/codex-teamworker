@@ -5,13 +5,13 @@
       "provider": "deepseek",
       "model": "deepseek-v4-pro",
       "baseUrl": "https://api.deepseek.com/anthropic",
-      "apiKey": "sk-dbc9d42ff18945b4bfd84bcd701b6813"
+      "apiKey": "DEEPSEEK_KEY"
     },
     "worker": {
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
       "baseUrl": "https://api.deepseek.com/anthropic",
-      "apiKey": "sk-dbc9d42ff18945b4bfd84bcd701b6813"
+      "apiKey": "DEEPSEEK_KEY"
     },
     "adapters": {
       "opencode": {

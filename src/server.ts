@@ -5,7 +5,7 @@ import { Orchestrator } from "./orchestrator.js";
 import { adapterSchema, planBundleSchema, taskGraphSchema } from "./types.js";
 
 const server = new McpServer({
-  name: "open-woker-team",
+  name: "teamworker",
   version: "0.1.0"
 });
 
